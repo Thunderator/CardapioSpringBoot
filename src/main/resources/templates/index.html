@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>iPhome</title>
+
+    <style>
+        #grid-container {
+            display: grid;
+            grid-column-gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            width: 75%;
+            grid-row-gap: 30px;
+        }
+
+        #grid-container>div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body {
+            background-color: #F8F8FF;
+        }
+
+        .marginLogo{
+            margin-left: 1rem;
+            margin-top: 1rem;
+        }
+
+        .marginTitle{
+            margin-bottom: 1rem;
+        }
+
+        .marginAd {
+            margin-right: 1rem;
+        }
+
+        .divDesc {
+            height: 5rem;
+            overflow: auto;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a:visited {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <h1 class="marginLogo">
+            iPhome
+            <img src="https://i.pinimg.com/originals/90/6e/2a/906e2ab958db0d27c82f5264be06a10b.png" height="50vh" />
+        </h1>
+
+        <div class="d-flex justify-content-end marginAd">
+            <a href="/cadastro">
+                <button type="button" class="btn btn-outline-light text-dark" id="btnad">
+                    <img src="https://image.flaticon.com/icons/png/128/25/25304.png" height="50vh" />
+                </button>
+            </a>
+        </div>
+    </header>
+
+    <!-- Corpo -->
+    <main>
+        <div class="d-flex justify-content-center marginTitle">
+            <h3>Cardápio</h3>
+        </div>
+
+        <div class="container" id='grid-container'>
+            <div th:each="cardapio : ${lista}">
+                <div class="card" style="width: 18rem">
+                    <img th:src="${cardapio.img}" class="card-img-top" alt="burger" />
+
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${cardapio.nome}">Nome</h5>
+                        <br />
+
+                        <p class="text-success" th:text="'R$ ' + ${cardapio.preco}">Preço</p>
+                        <br />
+
+                        <div class="divDesc">
+                            <p class="card-text" th:text="${cardapio.descricao}">Descrição</p>
+                        </div>
+
+                        <nav class="navbar navbar-expand-lg navbar-white bg-white d-flex justify-content-around">
+                            <a th:href="@{/editar/{id}(id=${cardapio.id})}">
+                                <button class="btn btn-sm btn-outline-info">Editar</button>
+                            </a>
+
+                            <a th:href="@{/deletar/{id}(id=${cardapio.id})}">
+                                <button class="btn btn-sm btn-outline-danger">Deletar</button>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>
